@@ -18,8 +18,8 @@ jobs:
       - name: Run Build Command
         run: |
           echo "Building the project..."
-          exit 1
-        continue-on-error: true
+        #   exit 1
+        # continue-on-error: true
 
   send_notification:
     runs-on: ubuntu-latest
