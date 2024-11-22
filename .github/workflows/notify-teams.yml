@@ -17,7 +17,7 @@ jobs:
       - name: Run Build Command
         run: |
           echo "Building the project..."
-          exit 1  
+         
       # Simulated failure
 
   send_notification:
