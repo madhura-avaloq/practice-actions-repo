@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - master
+env:
+  MS_TEAMS_WEBHOOK_URL: ${{ secrets.MS_TEAMS_WEBHOOK_URL }}
 
 # jobs:
 #   send_notification:
@@ -24,4 +26,4 @@ jobs:
         run: |
           curl -X POST -H "Content-Type: application/json" \
             -d '{"text": "A new push was made to the main branch!"}' \
-            ${{ secrets.MS_TEAMS_WEBHOOK_URL }}
+            $MS_TEAMS_WEBHOOK_URL
