@@ -6,12 +6,22 @@ on:
       - main
       - master
 
+# jobs:
+#   send_notification:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Send Microsoft Teams Notification
+#         uses: peter-evans/teams-notify@v1
+#         with:
+#           webhook-url: ${{ secrets.MS_TEAMS_WEBHOOK_URL }}
+#           message: "A new commit was pushed to the main branch."
+
 jobs:
   send_notification:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Microsoft Teams Notification
-        uses: peter-evans/teams-notify@v1
-        with:
-          webhook-url: ${{ secrets.MS_TEAMS_WEBHOOK_URL }}
-          message: "A new commit was pushed to the main branch."
+      - name: Send Teams Notification
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{"text": "A new push was made to the main branch!"}' \
+            ${{ secrets.MS_TEAMS_WEBHOOK_URL }}
