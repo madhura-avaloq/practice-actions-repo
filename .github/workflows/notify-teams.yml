@@ -29,18 +29,20 @@ jobs:
       - name: Send Success Notification
         if: success()  #  'build' job succeeds
         run: |
-          MESSAGE="Success in build !!"
-
+          COMMIT_MESSAGE=$(git log -1)
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"             
+          MESSAGE="Build succeeded on branch $BRANCH_NAME! Commit: $COMMIT_MESSAGE"
+  
           curl -X POST -H "Content-Type: application/json" \
-            -d "{\"text\": \"$MESSAGE\"}" \
-            $MS_TEAMS_WEBHOOK_URL
+          -d "{\"text\": $MESSAGE}" \
+          $MS_TEAMS_WEBHOOK_URL
 
       # Failure Notification
-      - name: Send Failure Notification
-        if: failure()  # 'build' job fails
-        run: |
-          MESSAGE="Error Occurred!! Please check the logs."
+      # - name: Send Failure Notification
+      #   if: failure()  # 'build' job fails
+      #   run: |
+      #     MESSAGE="Error Occurred!! Please check the logs."
 
-          curl -X POST -H "Content-Type: application/json" \
-            -d "{\"text\": \"$MESSAGE\"}" \
-            $MS_TEAMS_WEBHOOK_URL
+      #     curl -X POST -H "Content-Type: application/json" \
+      #       -d "{\"text\": \"$MESSAGE\"}" \
+      #       $MS_TEAMS_WEBHOOK_URL
