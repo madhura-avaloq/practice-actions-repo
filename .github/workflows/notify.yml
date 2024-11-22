@@ -19,8 +19,9 @@ jobs:
           auth-password: ${{ secrets.GMAIL_PASS }}
           subject: Status of Job
           body: Hii  shared status on your mail-on-star repo!!! ${{ github.repository }}
-          to: ${{ secrets.GMAIL_ADDRESS }}
+          
           from: ${{ secrets.GMAIL_ADDRESS }}
+          to: ${{ secrets.GMAIL_ADDRESS }}
 
           is-tls: false
           commit-message: true
