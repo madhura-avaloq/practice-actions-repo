@@ -18,9 +18,9 @@ jobs:
           echo "Building the project..."
 
     send_notification:
-      runs-on: ubuntu-latest
-      steps:
-      needs: build
+    runs-on: ubuntu-latest
+    steps:
+    needs: build
 
     #success
       - name: Send Success Notification
