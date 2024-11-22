@@ -11,11 +11,11 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Send email
-        uses: dawidd6/action-send-mail@v1.3.0
+        uses: AlexisMateo/sendmail-action@5
         with:
           server_address: smtp.gmail.com
           server_port: 465
-          username: **@gmail.com
+          username: madhurakhandare2@gmail.com@gmail.com
           password: ${{ secrets.GMAIL_PASS }}
           subject: Status of Job
           body: Hii  shared status on your mail-on-star repo!!! ${{ github.repository }}
