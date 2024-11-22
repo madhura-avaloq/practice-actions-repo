@@ -33,11 +33,11 @@ jobs:
             -d "{\"text\": \"$MESSAGE\"}" \
             $MS_TEAMS_WEBHOOK_URL
 
-      Failure Notification
+      # Failure Notification
       - name: Send Failure Notification
         if: failure()  # 'build' job fails
         run: |
-          MESSAGE=" Error Occurred!! Please check the logs."
+          MESSAGE="Error Occurred!! Please check the logs."
 
           curl -X POST -H "Content-Type: application/json" \
             -d "{\"text\": \"$MESSAGE\"}" \
