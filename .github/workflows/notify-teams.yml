@@ -5,8 +5,8 @@ on:
     branches:
       - main
       - master
-# env:
-#   MS_TEAMS_WEBHOOK_URL: ${{ MS_TEAMS_WEBHOOK_URL }}
+env:
+  MS_TEAMS_WEBHOOK_URL: ${{ MS_TEAMS_WEBHOOK_URL }}
 
 jobs:
   send_notification:
