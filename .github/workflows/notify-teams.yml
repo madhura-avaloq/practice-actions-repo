@@ -27,7 +27,7 @@ jobs:
       - name: Send Success Notification
         if: success()  #  'build' job succeeds
         run: |
-          COMMIT_MESSAGE=${{ git log -1 --pretty=%B }}
+          COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"             
           MESSAGE="Build succeeded on branch $BRANCH_NAME! Commit: $COMMIT_MESSAGE"
 
