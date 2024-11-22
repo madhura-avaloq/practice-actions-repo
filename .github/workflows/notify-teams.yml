@@ -1,14 +1,16 @@
 name: Send Microsoft Teams Notification
+
 on:
   push:
     branches:
       - main
       - master
+
 env:
   MS_TEAMS_WEBHOOK_URL: https://avaloqgroup.webhook.office.com/webhookb2/acc69694-4513-4770-9275-42f898a52f96@2ba8a4bf-3d7a-478b-b8d1-85cae49436ef/IncomingWebhook/ee99d20a71df4bb7993376f96e8a7427/9be00cee-8615-47cd-acdb-537181146f7d/V2vqRicQ0PbEBM-ImL6GUIwMByEgr2iZbJBdhuJXvNOV41
 
 jobs:
-    build:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -17,29 +19,30 @@ jobs:
         run: |
           echo "Building the project..."
 
-    send_notification:
+  send_notification:
     runs-on: ubuntu-latest
+    needs: build  # This job depends on the 'build' job
     steps:
-    needs: build
-
-    #success
+      # Success Notification
       - name: Send Success Notification
-        if: success()
+        if: success()  # This step runs only if the 'build' job succeeds
         run: |
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
           MESSAGE="Build succeeded on branch $BRANCH_NAME! Commit: $COMMIT_MESSAGE !!"
 
           curl -X POST -H "Content-Type: application/json" \
-            -d '{"text": "repo Link: ${{ github.repository }}"}' \
+            -d "{\"text\": \"repo Link: ${{ github.repository }}\"}" \
             $MS_TEAMS_WEBHOOK_URL
-            
-    #failure
+
+      # Failure Notification
       - name: Send Failure Notification
-        if: failure()
+        if: failure()  # This step runs only if the 'build' job fails
         run: |
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
           MESSAGE="Build failed on branch $BRANCH_NAME! Commit: $COMMIT_MESSAGE. Please check the logs."
 
           curl -X POST -H "Content-Type: application/json" \
-            -d '{"text": "$MESSAGE"}' \
+            -d "{\"text\": \"$MESSAGE\"}" \
             $MS_TEAMS_WEBHOOK_URL
