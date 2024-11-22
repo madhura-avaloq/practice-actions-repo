@@ -16,13 +16,11 @@ jobs:
       - name: Run Build Command
         run: |
           echo "Building the project..."
-         
-      # Simulated failure
 
-  send_notification:
-    runs-on: ubuntu-latest
-    steps:
-    needs: build
+    send_notification:
+      runs-on: ubuntu-latest
+      steps:
+      needs: build
 
     #success
       - name: Send Success Notification
