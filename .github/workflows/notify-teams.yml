@@ -5,18 +5,8 @@ on:
     branches:
       - main
       - master
-env:
-  MS_TEAMS_WEBHOOK_URL: ${{ secrets.MS_TEAMS_WEBHOOK_URL }}
-
-# jobs:
-#   send_notification:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Send Microsoft Teams Notification
-#         uses: peter-evans/teams-notify@v1
-#         with:
-#           webhook-url: ${{ secrets.MS_TEAMS_WEBHOOK_URL }}
-#           message: "A new commit was pushed to the main branch."
+# env:
+#   MS_TEAMS_WEBHOOK_URL: ${{ MS_TEAMS_WEBHOOK_URL }}
 
 jobs:
   send_notification:
