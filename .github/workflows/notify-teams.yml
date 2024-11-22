@@ -1,5 +1,4 @@
 name: Send Microsoft Teams Notification
-
 on:
   push:
     branches:
