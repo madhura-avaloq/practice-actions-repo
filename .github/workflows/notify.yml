@@ -14,14 +14,13 @@ jobs:
         uses: AlexisMateo/sendmail-action@5
         with:
           smtp-server: smtp.gmail.com
-          smtp-server-port: 465
+          smtp-server-port: 587
           auth-user: madhurakhandare2@gmail.com
           auth-password: ${{ secrets.GMAIL_PASS }}
           subject: Status of Job
           body: Hii  shared status on your mail-on-star repo!!! ${{ github.repository }}
-          
           from: ${{ secrets.GMAIL_ADDRESS }}
           to: ${{ secrets.GMAIL_ADDRESS }}
 
-          is-tls: false
+          is-tls: true
           commit-message: true
