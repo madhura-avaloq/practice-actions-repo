@@ -25,24 +25,27 @@ jobs:
     steps:
       # Success Notification
       - name: Send Success Notification
-        if: success()  # This step runs only if the 'build' job succeeds
+        if: success()  #  'build' job succeeds
         run: |
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"
-          MESSAGE="Build succeeded on branch $BRANCH_NAME! Commit: $COMMIT_MESSAGE !!"
+          MESSAGE="Build succeeded on branch $BRANCH_NAME! Commit: $COMMIT_MESSAGE"
+
+        # Escape any special characters for JSON
+          ESCAPED_MESSAGE=$(echo "$MESSAGE" | jq -R .)
 
           curl -X POST -H "Content-Type: application/json" \
-            -d "{\"text\": \"repo Link: ${{ github.repository }}\"}" \
+            -d "{\"text\": $ESCAPED_MESSAGE}" \
             $MS_TEAMS_WEBHOOK_URL
 
       # Failure Notification
-      - name: Send Failure Notification
-        if: failure()  # This step runs only if the 'build' job fails
-        run: |
-          COMMIT_MESSAGE=$(git log -1 --pretty=%B)
-          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
-          MESSAGE="Build failed on branch $BRANCH_NAME! Commit: $COMMIT_MESSAGE. Please check the logs."
+      # - name: Send Failure Notification
+      #   if: failure()  # 'build' job fails
+      #   run: |
+      #     COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+      #     BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+      #     MESSAGE="Build failed on branch $BRANCH_NAME! Commit: $COMMIT_MESSAGE. Please check the logs."
 
-          curl -X POST -H "Content-Type: application/json" \
-            -d "{\"text\": \"$MESSAGE\"}" \
-            $MS_TEAMS_WEBHOOK_URL
+      #     curl -X POST -H "Content-Type: application/json" \
+      #       -d "{\"text\": \"$MESSAGE\"}" \
+      #       $MS_TEAMS_WEBHOOK_URL
