@@ -1,0 +1,26 @@
+name: Notify_Status mail
+
+on:
+  watch:
+    types: [ started ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "email"
+  email:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Send email
+        uses: dawidd6/action-send-mail@v1.3.0
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: madhura-avaloq
+          password: ${{ secrets.GMAIL_PASS }}
+          subject: Status of Job
+          body: Hii  shared status on your mail-on-star repo!!! ${{ github.repository }}
+          to: ${{ secrets.GMAIL_ADDRESS }}
+          from: ${{ secrets.GMAIL_ADDRESS }}
